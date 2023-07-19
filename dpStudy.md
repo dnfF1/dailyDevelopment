@@ -1,0 +1,88 @@
+# Netty学习
+## NIO
+### Selector
+> 选择器/多路复用，检查一个或多个NIO Channel是否可读/可写，实现单线程管理多个Channels，避免上下文切换的开销
+![Selector和Channel的关系](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d50b863d656d45dc8d0b2f343e9bafdc~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
+
+> Selector和Channel通过注册方式联系
+```java
+channel.register(Selector selector, int position)
+```
+>> selector:选择器
+
+>> position:选择器查询通道的操作（四种）
+
+>> SelectionKey.OP_READ    可读
+
+>> SelectionKey.OP_WRITE   可写
+
+>> SelectionKey.OP_CONNECT 连接
+
+>> SelectionKey.OP_ACCEPT  接收
+
+>> 查询通道的多操作，可以采用位或实现
+
+>> int position = SelectionKey.OP_READ | SelectionKey.OP_WRITE
+
+>> 通道可以完成什么操作，则表示该操作已就绪，可以被Selector查询到
+
+> 创建Selector
+```java
+// 获取选择器
+Selector selector = Selector.open();
+```
+> 注册channel到selector
+```java
+// 获取通道
+SocketChannel socketChannel = SocketChannel.open();
+// 设置通道为非阻塞
+socketChannel.configureBlocking(false);
+// 通道注册到选择器
+socketChannel.register(selector, SelectionKey.OP_CONNECT);
+```
+
+> 查询通道的就绪操作
+```java
+Selector selector = Selector.open();
+// 一直阻塞，直到有一个通道在selector上注册的key就绪
+selector.select();
+// 阻塞，直到...，但阻塞最长时间为1000ms
+selector.select(1000);
+// 非阻塞，只要有通道就返回
+selector.selectNow();
+// 当select方法返回值大于0时，可以查询已就绪的通道操作
+Set<SelectionKey> keys = selector.selectedKeys();
+Iterator<SeletionKey> iterator = keys.iterator();
+SelectionKey key;
+while (iterator.hasNext()) {
+    key = iterator.next();
+    iterator.remove();
+    if (key.isAcceptable) {
+        // 服务端
+    } else if (key.isConnectable) {
+        // 客户端
+    } else if (key.isReadable) {
+        //
+    } else if (key.isWritable) {
+        //
+    }
+}
+selector.close();
+```
+> NIO开发流程
+>> 1.创建Channel通道
+
+>> 2.设置为非阻塞模式
+
+>> 3.创建Selector选择器
+
+>> 4.Channel注册到Selector
+
+>> 5.selector.select()，监听通道就绪状态
+
+>> 6.selector.selectedKeys()，获取就绪通道集合
+
+>> 7.遍历通道集合，判断就绪状态，实现对应业务
+
+- SocketChannel
+- ServerSocketChannel
