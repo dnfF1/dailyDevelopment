@@ -1,10 +1,20 @@
 # Netty学习
+## BIO
+### Socket
+```java
+Socket socket = new Socket("127.0.0.1", 9090);
+```
+### ServerSocket
+```java
+ServerSocket serverSocket = new ServerSocket(9090);
+Socket socket = serverSocket.accept();
+```
 ## NIO
 ### Selector
 > 选择器/多路复用，检查一个或多个NIO Channel是否可读/可写，实现单线程管理多个Channels，避免上下文切换的开销
 ![Selector和Channel的关系](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d50b863d656d45dc8d0b2f343e9bafdc~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
-> Selector和Channel通过注册方式联系
+> Selector和Channel通过注册方式绑定
 ```java
 channel.register(Selector selector, int position)
 ```
