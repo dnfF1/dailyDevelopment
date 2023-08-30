@@ -69,22 +69,30 @@
 - master宕机后，需要手动选择slave成为master，并手动修改client新的master节点地址
 - 主从复制流程
 > slave连接master，发送SYNC/PSYNC命令，进行全量复制
+
 > master接收到SYNC命令后，在后台保存RDB快照，并缓存生成快照期间接收到的写命令
+
 > 快照生成完毕，master将RDB快照发送给slave，并缓存发送快照期间接收到的写命令
+
 > 将缓存的写命令同步给slave
+
 > 增量同步写命令
 ![](https://img-blog.csdnimg.cn/20200620204750496.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Nla3lfZmVp,size_16,color_FFFFFF,t_70)
 - SYNC和PSYNC区别
 > Redis2.8版本之前，都是SYNC命令
+
 > SYNC：不管第一次还是断开重连，都是全量复制
+
 > PSYNC：只有第一次是全量复制，断开重连是增量复制
+
 > PSYNC增加了runid、offset和复制挤压缓冲区
+
 > PSYNC每次连接，master判断runid和自身id是否一致，一致则说明是断开重连
 ### 哨兵模式（高可用）
 - 流程和主从架构一样
 - 哨兵用来监控master和slave的运行状态
 - master节点宕机后，通过哨兵投票选举，选择slave节点成为新的master
-- 通过client新的master地址
+- 通知client新的master地址
 ### Redis Cluster
 - 多个Node，每个Node有一个master和多个slave
 - 每个Node存储一部分数据（哈希槽 hash slot）
@@ -94,7 +102,7 @@
 - 集群不保证强一致性，只保证最终一致性
 ## setNx
 ### 定义
-- set if not exist
+- set if not exists
 - 执行：set key value nx px 3000
 - 设置key，若key存在，则设置失败，即获取锁失败
 - 设置key时，为key设置合理的过期时间
@@ -129,7 +137,7 @@ end
 ### 定义
 - Redisson是java的Redis客户端
 - 支持锁、主从架构、哨兵模式、集群模式
-- 通过RdissonLock类实现锁
+- 通过RedissonLock类实现锁
 - 支持锁重入
 ```java
 RedissonLock client = getClient();
