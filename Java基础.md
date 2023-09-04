@@ -56,6 +56,7 @@
 ## public
 - 所有类可见
 - 可以修饰变量、方法、类、接口
+#
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744c433bcfd38~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 # final、finally、finalize
 ## final
@@ -124,7 +125,7 @@
 - 只能单继承
 ## 接口
 - 定义时使用interface关键字
-- 子类使用implents关键字实现
+- 子类使用implements关键字实现
 - 子类必须实现接口的所有方法
 - 不能有构造函数
 - 不能被private和protected修饰

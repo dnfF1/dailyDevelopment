@@ -288,7 +288,7 @@ public boolean add(E e) {
 - 每个线程有一个ThreadLocalMap对象，每个ThreadLocalMap对象可以有多个ThreadLocal对象的key
 - ThreadLocalMap类有一个Entry静态内部类，继承了弱引用，使用ThreadLocal作为key，value是我们设置的value
 - 线程操作ThreadLocal都是对ThreadLocalMap进行操作
-- set方法和get方法，都是先获取当前线程，再从ThreadLocal中获取ThreadLocalMap对象
+- set方法和get方法，都是先获取当前线程，再获取ThreadLocalMap对象
 ## 内存泄漏问题
 - ThreadLocal为null，ThreadLocalMap的key为null，value还在，内存泄漏
 ## 解决办法
