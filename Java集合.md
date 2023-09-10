@@ -71,7 +71,7 @@ Collection c = Collections.synchronizedList(list);
 - 根节点是黑色
 - 节点是红色，子节点必须是黑色
 - 每个节点到叶子节点【空节点】所经过的黑色节点数是一样的
-### HashMaps扩容，为什么都是2的N次幂
+### HashMap扩容，为什么都是2的N次幂
 - hash让hashCode的高16位和低16位异或^
 - 只有数组长度是2的幂方时，hash&(length-1) 和 hash%length 等价，执行效率高
 ## ConcurrentHashMap
