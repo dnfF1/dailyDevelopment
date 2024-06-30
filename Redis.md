@@ -47,13 +47,13 @@
 - WATCH：乐观锁，CAS监控key，有key被修改或删除，之后的事务不会执行
 ## Redis的数据结构及实现
 ### String
-- 字符串
-- 简单的键值对缓存
+- 简单动态字符串（Simple Dynamic String,SDS）
+- 缓存session、token、图片地址、序列化后的对象、计数、分布式锁（set key value nx）
 ### Hash
-- key-value映射表
-- 结构化的对象
+- 数组+链表
+- 结构化的对象（用户信息、商品信息、购物车信息）
 ### List
-- 双向链表实现的列表
+- 双向链表
 - 粉丝列表、评论列表
 ### Set
 - 哈希表实现的不可重复的无序集合
