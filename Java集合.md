@@ -30,7 +30,7 @@ Collection<Integer> clist = Collections.unmodifiableCollection(list);
 - for
 - foreach
 - iterator
-- ArrayList实现了RandomAccess接口，for遍历走的时索引
+- ArrayList实现了RandomAccess接口，for遍历走的是索引
 ### 数组和List
 - 数组->List：Arrays.asList(arr)
 - List->数组：list.toArray()
